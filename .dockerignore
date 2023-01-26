@@ -1,0 +1,19 @@
+# No data files
+.dvc/cache/
+.dvc/tmp/
+data/
+
+# No notebooks
+*.ipynb
+.ipynb_checkpoints/
+notebooks/
+
+# No linting and caching
+.dmypy.json
+.mypy_cache/
+__pycache__/
+.ruff_cache/
+
+# No testing
+tests/
+.pytest_cache/

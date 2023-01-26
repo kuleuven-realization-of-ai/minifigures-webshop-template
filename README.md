@@ -6,19 +6,19 @@ Welcome to the *Minifigures Webshop* project assignment. The goal of this assign
 
 ![Webshop Example](https://www.sendcloud.nl/wp-content/uploads//2018/04/Amazon-prime.png)
 
-If you're curious how the final result will look like, go and visit our [reference solution](http://realization-of-ai.radix.sh)!
+If you're curious how the final result will look like, go and visit our [reference solution](https://minifigures.radix.ai)!
 
 
 
 ## Getting Started 🚀
 
-### Fork this repository
-
-To start with this assignment, you need to fork this repository to create your own, personal and private, repository.
-
 ### Open in GitHub Codespaces
 
 We recommend to develop in [GitHub Codespaces](https://github.com/features/codespaces), which will automatically open the pre-configured environment so that you can start coding immediately! Click on _Code_ and select _Create codespace_ to start a Dev Container GitHub Codespaces. By default, it will spin up a compute instance with a 2-core CPU, 4GB of RAM, and 32GB of storage. This is enough for this project and also the advised configuration since it prevents you from running out of core hours (240h/month for students).
+
+### Develop in the devcontainer
+
+By default, GitHub Codespaces will open a _Development Container_ (devcontainer) for you. Within this container, we've pre-configured a virtual environment for you, so you shouldn't worry about installing different packages and can start the project right away! Learn more about this virtual environment and its supported tools in the section "Development tools 🛠️" below.
 
 
 ## Development tools 🛠️

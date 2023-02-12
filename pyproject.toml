@@ -148,6 +148,7 @@ target-version = "py310"
       --server.address $host
       --server.port $port
       --theme.base light
+      --server.enableCORS false
       src/minifigures_app/🏠_Home.py
     """
   use_exec = true

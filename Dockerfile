@@ -73,6 +73,16 @@ RUN --mount=type=cache,target=/var/cache/apt/ \
     apt-get install terraform
 USER app
 
+# Install aws CLI
+USER root
+RUN --mount=type=cache,target=/var/cache/apt/ \
+    --mount=type=cache,target=/var/lib/apt/ \ 
+    apt-get install unzip -y && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install
+USER app
+
 # Persist output generated during docker build so that we can restore it in the dev container.
 COPY .pre-commit-config.yaml /app/
 RUN mkdir -p /opt/build/poetry/ && cp poetry.lock /opt/build/poetry/ && \

@@ -2,6 +2,9 @@
 ARG PYTHON_VERSION=3.10
 FROM python:$PYTHON_VERSION-slim AS base
 
+# Production environment for fastdup such that no RunTimeError for old version (/opt/app-env/lib/python3.10/site-packages/fastdup/__init__.py:53)
+ENV FASTDUP_PRODUCTION 1
+
 # Install Poetry.
 ENV POETRY_VERSION 1.3.1
 RUN --mount=type=cache,target=/root/.cache/pip/ \

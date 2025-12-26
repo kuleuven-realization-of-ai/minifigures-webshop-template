@@ -21,13 +21,7 @@ def predict(file: UploadFile) -> Prediction:
     # Convert the UploadFile to a torch Tensor
     _file = extract_images_from_files([file])[0]
 
-    # Make a prediction
-    pass
+    # TODO: make a prediction
 
     # Return the result
-    return Prediction(
-        prediction={
-            "class1": 0.42,
-            "class2": 0.42,
-        }
-    )
+    return Prediction(prediction={"class1": 0.42, "class2": 0.42})

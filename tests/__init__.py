@@ -1,1 +1,1 @@
-"""Minifigures Webshop test suite."""
+"""minifigures-app test suite."""

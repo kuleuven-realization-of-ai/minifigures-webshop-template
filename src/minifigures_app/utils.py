@@ -17,8 +17,7 @@ def predict_image(image: Image.Image) -> dict[str, float]:
 
     # Create the prediction
     response = requests.post(
-        url=f"{URL}/predict/image/",
-        files=[("file", ("UID", img_str, "image/png"))],
+        url=f"{URL}/predict/image/", files=[("file", ("UID", img_str, "image/png"))]
     )
 
     # Return the result

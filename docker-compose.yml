@@ -4,49 +4,18 @@ services:
 
   devcontainer:
     build:
-      context: .
       target: dev
-      args:
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
-        UID: ${UID:-1000}
-        GID: ${GID:-1000}
-    environment:
-      - POETRY_PYPI_TOKEN_PYPI
     volumes:
-      - .:/app/
-
-  dev:
-    extends: devcontainer
-    stdin_open: true
-    tty: true
-    entrypoint: []
-    command:
-      [
-        "sh",
-        "-c",
-        "sudo chown app $$SSH_AUTH_SOCK && cp --update /opt/build/poetry/poetry.lock /app/ && mkdir -p /app/.git/hooks/ && cp --update /opt/build/git/* /app/.git/hooks/ && zsh"
-      ]
-    environment:
-      - POETRY_PYPI_TOKEN_PYPI
-      - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
-    ports:
-      - "8000"
-      - "8500"
-    volumes:
-      - ~/.gitconfig:/etc/gitconfig
-      - ~/.ssh/known_hosts:/home/app/.ssh/known_hosts
-      - ${SSH_AGENT_AUTH_SOCK:-/run/host-services/ssh-auth.sock}:/run/host-services/ssh-auth.sock
-    profiles:
-      - dev
+      - ..:/workspaces
+      - command-history-volume:/home/user/.history/
 
   run:
     build:
-      context: .
-      target: run
+      target: app
     tty: true
     profiles:
       - app
     image: ${DOCKER_USERNAME}/minifigures:run-${VERSION}
 
 volumes:
-  command-history:
+  command-history-volume:

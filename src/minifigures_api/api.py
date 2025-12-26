@@ -28,7 +28,4 @@ def startup_event() -> None:
 
 
 # Specify the different endpoint routers
-app.include_router(
-    predict_router,
-    prefix="/predict",
-)
+app.include_router(predict_router, prefix="/predict")

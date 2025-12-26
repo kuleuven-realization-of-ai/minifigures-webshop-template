@@ -2,15 +2,30 @@
     "name": "minifigures-app",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "devcontainer",
-    "workspaceFolder": "/app/",
-    "remoteUser": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers-extra/features/starship:1": {}
+    },
     "overrideCommand": true,
-    "postStartCommand": "cp --update /opt/build/poetry/poetry.lock /app/ && mkdir -p /app/.git/hooks/ && cp --update /opt/build/git/* /app/.git/hooks/",
+    "remoteUser": "user",
+    "postStartCommand": "sudo chown -R user:user /opt/ && uv sync --python ${localEnv:PYTHON_VERSION:3.10} --all-extras && pre-commit install --install-hooks",
     "customizations": {
+        "jetbrains": {
+            "backend": "PyCharm",
+            "plugins": [
+                "com.github.copilot"
+            ]
+        },
         "vscode": {
             "extensions": [
                 "charliermarsh.ruff",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "ms-azuretools.vscode-docker",
+                "ms-python.mypy-type-checker",
                 "ms-python.python",
+                "ms-toolsai.jupyter",
                 "ryanluker.vscode-coverage-gutters",
                 "tamasfe.even-better-toml",
                 "visualstudioexptteam.vscodeintellicode"
@@ -20,10 +35,13 @@
                     "reports/coverage.xml"
                 ],
                 "editor.codeActionsOnSave": {
-                    "source.fixAll": true,
-                    "source.organizeImports": true
+                    "source.fixAll": "explicit",
+                    "source.organizeImports": "explicit"
                 },
                 "editor.formatOnSave": true,
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff"
+                },
                 "[toml]": {
                     "editor.formatOnSave": false
                 },
@@ -31,26 +49,31 @@
                     100
                 ],
                 "files.autoSave": "onFocusChange",
-                "python.defaultInterpreterPath": "/opt/app-env/bin/python",
-                "python.formatting.provider": "black",
-                "python.linting.banditArgs": [
-                    "--configfile",
-                    "pyproject.toml"
+                "github.copilot.chat.agent.enabled": true,
+                "github.copilot.chat.codesearch.enabled": true,
+                "github.copilot.chat.edits.enabled": true,
+                "github.copilot.nextEditSuggestions.enabled": true,
+                "jupyter.kernels.excludePythonEnvironments": [
+                    "/usr/local/bin/python"
                 ],
-                "python.linting.mypyEnabled": true,
+                "mypy-type-checker.importStrategy": "fromEnvironment",
+                "mypy-type-checker.preferDaemon": true,
+                "notebook.codeActionsOnSave": {
+                    "notebook.source.fixAll": "explicit",
+                    "notebook.source.organizeImports": "explicit"
+                },
+                "notebook.formatOnSave.enabled": true,
+                "python.defaultInterpreterPath": "/opt/venv/bin/python",
                 "python.terminal.activateEnvironment": false,
                 "python.testing.pytestEnabled": true,
                 "ruff.importStrategy": "fromEnvironment",
-                "terminal.integrated.defaultProfile.linux": "zsh",
-                "terminal.integrated.profiles.linux": {
-                    "zsh": {
-                        "path": "/usr/bin/zsh"
-                    }
+                "terminal.integrated.env.linux": {
+                    "GIT_EDITOR": "code --wait"
+                },
+                "terminal.integrated.env.mac": {
+                    "GIT_EDITOR": "code --wait"
                 }
             }
         }
-    },
-    "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     }
 }

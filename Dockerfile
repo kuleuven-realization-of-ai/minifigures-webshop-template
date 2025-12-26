@@ -46,7 +46,7 @@ RUN --mount=type=cache,target=/var/cache/apt/ \
 # Install aws CLI
 RUN --mount=type=cache,target=/var/cache/apt/ \
     --mount=type=cache,target=/var/lib/apt/ \ 
-    apt-get install unzip -y && \
+    apt-get install -y unzip groff less && \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install

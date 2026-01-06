@@ -17,7 +17,7 @@ RUN --mount=type=cache,target=/var/cache/apt/ \
     groupadd --gid 1000 user && \
     useradd --create-home --no-log-init --gid 1000 --uid 1000 --shell /usr/bin/bash user && \
     chown user:user /opt/ && \
-    apt-get update && apt-get install --no-install-recommends --yes sudo && \
+    apt-get update && apt-get install --no-install-recommends --yes sudo libgl1 libglib2.0-0 && \
     echo 'user ALL=(root) NOPASSWD:ALL' > /etc/sudoers.d/user && chmod 0440 /etc/sudoers.d/user
 USER user
 
@@ -32,7 +32,7 @@ RUN mkdir ~/.history/ && \
 USER root
 RUN --mount=type=cache,target=/var/cache/apt/ \
     --mount=type=cache,target=/var/lib/apt/ \ 
-    apt-get update && apt-get install -y gnupg software-properties-common && \
+    apt-get update && apt-get install -y gnupg software-properties-common lsb-release wget && \
     wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg && \ 
     gpg --no-default-keyring \
     --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
@@ -67,7 +67,7 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN --mount=type=cache,target=/var/cache/apt/ \
     --mount=type=cache,target=/var/lib/apt/ \
     apt-get update && \
-    apt-get install --no-install-recommends --yes build-essential
+    apt-get install --no-install-recommends --yes build-essential libgl1 libglib2.0-0
 
 # Create a non-root user and switch to it [1].
 # [1] https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
